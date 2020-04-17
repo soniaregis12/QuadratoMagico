@@ -8,6 +8,38 @@ public class RisolviQuadrato {
 	private int N2 ; // numero di caselle (N^2)
 	private int magica ; // costante magica
 	
+	public RisolviQuadrato(int N){
+		this.N = N;
+		this.N2 = N*N;
+		this.magica = N*(N2+1)/2;
+	}
+	// Calcola tutti i quadrati magici
+	public void quadrati() {
+		
+		List<Integer> parziale = new ArrayList<Integer>();
+		int livello = 0;
+		ricorsiva(parziale, livello);
+	}
+	// Procedura ricorsiva ver e propria
+	private void ricorsiva(List<Integer> parziale, int livello) {
+		
+		if(livello == this.N2) {	// Caso terminale
+			
+			if(controlla(parziale)) {	// Il quadrato è magico
+				System.out.println(parziale);
+			}
+			return;
+		}
+		
+		for(int valore=1; valore <= this.N2; valore++) {
+			if(!parziale.contains(valore)) {		// Se non lo contiene allora posso provarlo
+				parziale.add(valore);
+				ricorsiva(parziale, livello+1);
+				parziale.remove(parziale.size()-1);
+			}
+		}
+	}
+	
 	
 	/**
 	 * Verifica se una soluzione rispetta tutte le somme
